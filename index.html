@@ -1,0 +1,462 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoopelZeta's Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #8a2be2, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(138, 43, 226, 0.3);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #8a2be2, #ff69b4);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(138, 43, 226, 0.4);
+        }
+        .navbar {
+            transition: all 0.3s ease;
+        }
+        .navbar.hidden {
+            transform: translateY(-100%);
+        }
+        
+                /* 新增动态效果 */
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animate-fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .parallax-bg {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .glitch-effect {
+            position: relative;
+            display: inline-block;
+        }
+        .glitch-effect::before,
+        .glitch-effect::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .glitch-effect::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        .glitch-effect::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            5% { clip: rect(12px, 9999px, 59px, 0); }
+            10% { clip: rect(48px, 9999px, 29px, 0); }
+            15% { clip: rect(42px, 9999px, 73px, 0); }
+            20% { clip: rect(63px, 9999px, 27px, 0); }
+            25% { clip: rect(34px, 9999px, 55px, 0); }
+            30% { clip: rect(86px, 9999px, 73px, 0); }
+            35% { clip: rect(20px, 9999px, 20px, 0); }
+            40% { clip: rect(26px, 9999px, 60px, 0); }
+            45% { clip: rect(25px, 9999px, 66px, 0); }
+            50% { clip: rect(57px, 9999px, 98px, 0); }
+            55% { clip: rect(5px, 9999px, 46px, 0); }
+            60% { clip: rect(82px, 9999px, 31px, 0); }
+            65% { clip: rect(54px, 9999px, 27px, 0); }
+            70% { clip: rect(28px, 9999px, 99px, 0); }
+            75% { clip: rect(45px, 9999px, 69px, 0); }
+            80% { clip: rect(23px, 9999px, 85px, 0); }
+            85% { clip: rect(1px, 9999px, 83px, 0); }
+            90% { clip: rect(72px, 9999px, 11px, 0); }
+            95% { clip: rect(60px, 9999px, 89px, 0); }
+            100% { clip: rect(52px, 9999px, 74px, 0); }
+        }
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(52px, 9999px, 74px, 0); }
+            10% { clip: rect(79px, 9999px, 85px, 0); }
+            15% { clip: rect(75px, 9999px, 5px, 0); }
+            20% { clip: rect(67px, 9999px, 61px, 0); }
+            25% { clip: rect(14px, 9999px, 79px, 0); }
+            30% { clip: rect(1px, 9999px, 66px, 0); }
+            35% { clip: rect(86px, 9999px, 30px, 0); }
+            40% { clip: rect(23px, 9999px, 98px, 0); }
+            45% { clip: rect(85px, 9999px, 72px, 0); }
+            50% { clip: rect(71px, 9999px, 75px, 0); }
+            55% { clip: rect(2px, 9999px, 48px, 0); }
+            60% { clip: rect(30px, 9999px, 16px, 0); }
+            65% { clip: rect(59px, 9999px, 50px, 0); }
+            70% { clip: rect(41px, 9999px, 62px, 0); }
+            75% { clip: rect(2px, 9999px, 82px, 0); }
+            80% { clip: rect(47px, 9999px, 73px, 0); }
+            85% { clip: rect(3px, 9999px, 27px, 0); }
+            90% { clip: rect(26px, 9999px, 55px, 0); }
+            95% { clip: rect(42px, 9999px, 97px, 0); }
+            100% { clip: rect(38px, 9999px, 49px, 0); }
+        }
+        .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(99, 102, 241, 0.5);
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(.8);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+        .tilt-effect {
+            perspective: 1000px;
+        }
+        .tilt-inner {
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+        .project-card.tilt-effect:hover .tilt-inner {
+            transform: rotateX(10deg) rotateY(10deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <nav id="navbar" class="fixed w-full z-10 bg-black bg-opacity-80 backdrop-blur-sm py-4 px-6 flex justify-between items-center shadow-lg navbar">
+        <div class="text-xl font-bold gradient-text">
+           <i class="fas fa-terminal mr-2"></i>Loopel Zeta
+        </div>
+        <div class="hidden md:flex space-x-8">
+            <a href="#home" class="hover:text-purple-400 transition duration-300 nav-item">Home</a>
+            <a href="#about" class="hover:text-purple-400 transition duration-300 nav-item">About me</a>
+            <a href="#projects" class="hover:text-purple-400 transition duration-300 nav-item">Projects</a>
+            <a href="#skills" class="hover:text-purple-400 transition duration-300 nav-item">Skills</a>
+            <a href="#friends" class="hover:text-purple-400 transition duration-300 nav-item">Friends</a>
+        </div>
+        <button id="menu-toggle" class="md:hidden text-xl">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- 主要内容区 -->
+    <main class="pt-20 pb-16">
+        <!-- 首页部分 -->
+        <section id="home" class="min-h-screen flex flex-col items-center justify-center px-4 text-center">
+            </div>
+            <div class="absolute inset-0 z-0">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-indigo-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-30 animate-blob floating-element"></div>
+            <div class="absolute top-1/3 right-1/4 w-72 h-72 bg-purple-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-30 animate-blob animation-delay-2000 floating-element" style="animation-delay: 2s;"></div>
+            <div class="absolute bottom-1/4 left-1/2 w-60 h-60 bg-pink-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-30 animate-blob animation-delay-4000 floating-element" style="animation-delay: 4s;"></div>
+        </div>
+        <div class="text-center z-10 px-4">
+            <div class="mb-8 relative">
+                <div class="relative inline-block">
+                <div class="mb-0 w-40 h-40 rounded-full overflow-hidden border-4 border-purple-500 shadow-2xl shadow-purple-500/30">
+                    <img src="https://avatars.githubusercontent.com/u/49837965?v=4" alt="个人头像" class="w-40 h-40 rounded-full mx-auto avatar-border shadow-2xl">
+                    <div class="pulse-ring"></div>
+                </div>
+            </div>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 glitch-effect" data-text="Loopel Zeta">
+                Loopel Zeta
+                </div>
+                <p class="text-xl md:text-2xl max-w-2xl mb-8 text-gray-300">
+                前端开发者 | 跑酷爱好者 | 创意实践者
+            </h1>
+               </div>
+            <!-- 社交媒体链接和邮箱放在同一行 -->
+            <div class="flex space-x-6">
+                <a href="https://github.com/zero123t" target="_blank" class="text-3xl hover:text-purple-400 transition duration-300 transform hover:scale-110">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://space.bilibili.com/3546616348806078" target="_blank" class="text-3xl hover:text-pink-400 transition duration-300 transform hover:scale-110">
+                    <i class="fab fa-bilibili"></i>
+                </a>
+                <a href="https://twitter.com/yq6751Zeros" target="_blank" class="text-3xl hover:text-blue-400 transition duration-300 transform hover:scale-110">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://qm.qq.com/cgi-bin/qm/qr?k=c7q0sGRWpnTtMVnSdGva8yfDq2_5VM4m" target="_blank" class="text-3xl hover:text-gray-400 transition duration-300 transform hover:scale-110">
+                    <i class="fab fa-qq"></i>
+                     </a>
+               <!-- 微信直链 -->
+                <a href="weixin://dl/chat? loopzelzeta" target="_blank" class="text-3xl hover:text-purple-400 transition duration-300 transform hover:scale-110">
+                    <i class="fab fa-weixin"></i>
+                </a>
+                <a href="https://steamcommunity.com/id/yq6751Zeros" target="_blank" class="text-3xl hover:text-purple-400 transition duration-300 transform hover:scale-110">
+                    <i class="fab fa-steam"></i>
+                </a>
+                <!-- Instagram直链 -->
+                <a href="https://www.instagram.com/zero94296?igsh=cDg5ZXg5NDV5ZGow" target="_blank" class="text-3xl hover:text-purple-400 transition duration-300 transform hover:scale-110">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <!-- Discord直链 -->
+                <a href="https://discord.gg/rfhDMBR5" target="_blank" class="text-3xl hover:text-purple-400 transition duration-300 transform hover:scale-110">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="mailto:yq6751@outlook.com" class="text-3xl hover:text-blue-400 transition duration-300 transform hover:scale-110">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <div class="text-xl md:text-2xl mb-8 h-8 animate-fade-in">
+                <span id="typing-text" class="typing-cursor"></span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 animate-fade-in" style="animation-delay: 0.3s;">
+                </div>
+            <div class="mt-12 flex justify-center space-x-6 animate-fade-in" style="animation-delay: 0.6s;">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 gradient-text">
+                Loopel Zeta
+            </h1>
+            </div>
+        </section>
+
+         <!-- 关于我 -->
+         <section id="about" class="px-4 max-w-6xl mx-auto">
+         <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center gradient-text">
+                About me
+                </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            I'm a loser.
+            </section>        
+                
+        <!-- 项目展示区 -->
+        <section id="projects" class="py-20 px-4 max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center gradient-text">
+                My Projects
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 项目卡片1 -->
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl overflow-hidden shadow-xl card-hover border border-gray-700">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://picsum.photos/600/400?random=1" alt="项目1截图" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">React个人网站</h3>
+                        <p class="text-gray-400 mb-4">使用React构建的响应式个人网站，包含作品展示和博客功能。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-purple-900 text-purple-300 rounded-full text-sm">React</span>
+                            <span class="px-3 py-1 bg-blue-900 text-blue-300 rounded-full text-sm">TailwindCSS</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300">
+                                <i class="fab fa-github mr-1"></i> 源码
+                            </a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300">
+                                <i class="fas fa-external-link-alt mr-1"></i> 预览
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目卡片2 -->
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl overflow-hidden shadow-xl card-hover border border-gray-700">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://picsum.photos/600/400?random=2" alt="项目2截图" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Vue电商后台</h3>
+                        <p class="text-gray-400 mb-4">基于Vue3和Element Plus的企业级电商平台管理后台系统。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-green-900 text-green-300 rounded-full text-sm">Vue3</span>
+                            <span class="px-3 py-1 bg-blue-900 text-blue-300 rounded-full text-sm">Element Plus</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300">
+                                <i class="fab fa-github mr-1"></i> 源码
+                            </a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300">
+                                <i class="fas fa-external-link-alt mr-1"></i> 预览
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目卡片3 -->
+                <div class="bg-gray-800 bg-opacity-50 rounded-xl overflow-hidden shadow-xl card-hover border border-gray-700">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://picsum.photos/600/400?random=3" alt="项目3截图" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Node.js API服务</h3>
+                        <p class="text-gray-400 mb-4">高性能RESTful API服务，支持JWT认证和数据库操作。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-yellow-900 text-yellow-300 rounded-full text-sm">Node.js</span>
+                            <span class="px-3 py-1 bg-red-900 text-red-300 rounded-full text-sm">Express</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300">
+                                <i class="fab fa-github mr-1"></i> 源码
+                            </a>
+                            <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300">
+                                <i class="fas fa-external-link-alt mr-1"></i> 文档
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技能展示区 -->
+        <section id="skills" class="py-20 px-4 max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center gradient-text">
+               My Skills
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-purple-400">Building</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>React/Vue</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>JavaScript/TypeScript</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>CSS/TailwindCSS</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-purple-400">Parkour</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Onejump</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Rankup</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                        
+                            <div class="flex justify-between mb-1">
+                                <span>Onlysprint/Segmented</span>
+                                <span>50%</span>
+                            </div>
+                            <div class="h-3 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style="width:50%"></div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- 朋友展示区 -->
+        <section id="friends" class="py-20 px-4 max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center gradient-text">
+                My Friends
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 朋友1 -->
+                <div class="flex items-center bg-gray-800 bg-opacity-50 rounded-xl p-4 card-hover border border-gray-700">
+                    <div class="w-16 h-16 rounded-full overflow-hidden mr-4 border-2 border-purple-500">
+                        <img src="https://picsum.photos/200/200?random=1" alt="朋友1头像" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">unknown</h3>
+                        <p class="text-gray-400 text-sm">nothing</p>
+                    </div>
+                </div>
+
+                <!-- 朋友2 -->
+                <div class="flex items-center bg-gray-800 bg-opacity-50 rounded-xl p-4 card-hover border border-gray-700">
+                    <div class="w-16 h-16 rounded-full overflow-hidden mr-4 border-2 border-purple-500">
+                        <img src="https://picsum.photos/200/200?random=2" alt="朋友2头像" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">unknown</h3>
+                        <p class="text-gray-400 text-sm">nothing</p>
+                    </div>
+                </div>
+
+                <!-- 朋友3 -->
+                <div class="flex items-center bg-gray-800 bg-opacity-50 rounded-xl p-4 card-hover border border-gray-700">
+                    <div class="w-16 h-16 rounded-full overflow-hidden mr-4 border-2 border-purple-500">
+                        <img src="https://picsum.photos/200/200?random=3" alt="朋友3头像" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">unknown</h3>
+                        <p class="text-gray-400 text-sm">nothing</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="py-8 text-center text-gray-500 border-t border-gray-800">
+        <p>user@loopelzeta:~$ echo "感谢访问"
+        <p>© 2026 Loopel Zeta. All rights reserved..</p>
+    </footer>
+    
+    <script><script>
